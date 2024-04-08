@@ -1,4 +1,4 @@
-package com.library.steps;
+package com.library.steps.StepDefs;
 
 import com.library.utility.DB_Util;
 import io.cucumber.java.en.Given;
@@ -6,8 +6,11 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
-public class UserStepDefs {
+import java.util.List;
+
+public class US01_StepDefs {
     String actualUserCount;
+    List<String> actualColumns;
     @Given("Establish the database connection")
     public void establish_the_database_connection() {
 
@@ -46,5 +49,19 @@ public class UserStepDefs {
         System.out.println("------    DB CONN IS CLOSED BY HOOK -------");
         System.out.println("-----------------------------------------");
 
+    }
+
+
+
+    @When("Execute query to get all columns")
+    public void execute_query_to_get_all_columns() {
+        DB_Util.runQuery("select * from users");
+        actualColumns = DB_Util.getAllColumnNamesAsList();
+        System.out.println("actualColumns = " + actualColumns);
+    }
+    @Then("verify the below columns are listed in result")
+    public void verify_the_below_columns_are_listed_in_result(List<String> expectedColumns) {
+        System.out.println("expectedColumns = " + expectedColumns);
+        Assert.assertEquals(expectedColumns,actualColumns);
     }
 }

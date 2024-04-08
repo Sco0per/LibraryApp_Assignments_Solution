@@ -37,10 +37,10 @@ public class BookPage extends BasePage {
     @FindBy(name = "year")
     public WebElement year;
 
-    @FindBy(name = "isbn")
+    @FindBy(xpath = "//input[@name='isbn']")
     public WebElement isbn;
 
-    @FindBy(id = "book_group_id")
+    @FindBy(xpath = "//select[@id='book_categories']")
     public WebElement categoryDropdown;
 
 
@@ -58,6 +58,7 @@ public class BookPage extends BasePage {
         String xpath = "//td[3][.='" + book + "']/../td/a";
         return Driver.getDriver().findElement(By.xpath(xpath));
     }
+
 
 
 
